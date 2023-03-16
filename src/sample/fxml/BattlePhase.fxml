@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.media.Media?>
+<?import javafx.scene.media.MediaPlayer?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.BattleController">
+   <children>
+      <Button fx:id="endField" layoutX="395.0" layoutY="158.0" mnemonicParsing="false" onAction="#EndButton" prefHeight="275.0" prefWidth="540.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 45; -fx-font-family: &quot;Consolas&quot;; -fx-border-width: 5; -fx-border-color: black;" text="GAME END" textOverrun="CLIP">
+         <font>
+            <Font name="Consolas" size="46.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
+      <Pane fx:id="ItemInfoPane" layoutX="10.0" layoutY="386.0" prefHeight="142.0" prefWidth="989.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-accent: white;">
+         <children>
+            <Label fx:id="ItemInfo" alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="6.0" layoutY="7.0" prefHeight="79.0" prefWidth="978.0" style="-fx-background-color: white;" text="ItemInfo" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Consolas" size="38.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Label>
+            <Button fx:id="UseItemButton" layoutX="6.0" layoutY="66.0" minHeight="0.0" mnemonicParsing="false" onAction="#ItemUse" prefHeight="64.0" prefWidth="978.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 33; -fx-font-family: &quot;Consolas&quot;; -fx-border-width: 5;" text="USE" textOverrun="CLIP">
+               <font>
+                  <Font name="Consolas" size="50.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Line fx:id="oppPath" endX="-1251.121337890625" endY="47.0" layoutX="776.0" layoutY="343.0" startX="-633.4141845703125" startY="-216.0" />
+      <Pane fx:id="waitingPane" layoutX="-5.0" layoutY="515.0" prefHeight="291.0" prefWidth="1324.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-accent: white;">
+         <children>
+            <Label fx:id="waitingText" alignment="CENTER" graphicTextGap="10.0" layoutX="6.0" layoutY="4.0" prefHeight="292.0" prefWidth="1300.0" style="-fx-background-color: white;" text="Waiting for other Player..." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Consolas" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="UseSkillPane" layoutX="990.0" layoutY="376.0" prefHeight="142.0" prefWidth="309.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-accent: white;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="6.0" prefHeight="64.0" prefWidth="299.0" style="-fx-background-color: white;" text="Use this skill" textAlignment="CENTER">
+               <font>
+                  <Font name="Candara" size="41.0" />
+               </font>
+            </Label>
+            <Button layoutX="6.0" layoutY="64.0" mnemonicParsing="false" onAction="#YesButtonAction" prefHeight="71.0" prefWidth="299.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 30; -fx-font-family: &quot;Consolas&quot;; -fx-border-width: 5; -fx-font-weight: bold;" text="Yes" textOverrun="CLIP">
+               <font>
+                  <Font name="Consolas" size="46.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="SkillInfoPane" layoutY="376.0" prefHeight="142.0" prefWidth="989.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-accent: white;">
+         <children>
+            <Label fx:id="SkillInfo" alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="6.0" layoutY="7.0" prefHeight="129.0" prefWidth="978.0" style="-fx-background-color: white;" text="Skill information" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Consolas" size="38.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="SkillPane" layoutY="518.0" prefHeight="283.0" prefWidth="656.0" style="-fx-border-color: black; -fx-border-width: 5;">
+         <children>
+            <Button fx:id="Skill1" layoutX="7.0" layoutY="6.0" mnemonicParsing="false" onAction="#Skill1Button" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 40;" text="Skill 1">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Button>
+            <Button fx:id="Skill2" layoutX="328.0" layoutY="6.0" mnemonicParsing="false" onAction="#Skill2Button" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 40;" text="Skill 2">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Button>
+            <Button fx:id="Skill3" layoutX="7.0" layoutY="138.0" mnemonicParsing="false" onAction="#Skill3Button" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 40;" text="Skill 3">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Button>
+            <Button fx:id="Skill4" layoutX="328.0" layoutY="138.0" mnemonicParsing="false" onAction="#Skill4Button" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 40;">
+               <font>
+                  <Font name="Candara" size="40.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <ImageView fx:id="BattleBackground" fitHeight="813.0" fitWidth="1300.0" layoutY="-9.0">
+         <image>
+            <Image url="@../../background/21.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="curMonster" fitHeight="263.0" fitWidth="365.0" layoutX="119.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../MyOppMon/my1.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="oppMonster" fitHeight="221.0" fitWidth="396.0" layoutX="864.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="113.0" layoutX="51.0" layoutY="25.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="343.0" />
+      <ProgressBar fx:id="oppHP" cache="true" depthTest="DISABLE" layoutX="119.0" layoutY="83.0" prefHeight="29.0" prefWidth="259.0" progress="1.0" style="-fx-accent: green;">
+         <effect>
+            <Glow level="1.0" />
+         </effect>
+      </ProgressBar>
+      <Label fx:id="oppMonsterName" layoutX="88.0" layoutY="25.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="64.0" prefWidth="306.0" text="Monster B" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Candara Bold" size="33.0" />
+         </font>
+      </Label>
+      <Pane fx:id="ChatPane" layoutY="518.0" prefHeight="283.0" prefWidth="656.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-accent: white;">
+         <children>
+            <Button fx:id="chat1" layoutX="6.0" layoutY="6.0" minHeight="10.0" mnemonicParsing="false" onAction="#Chat1Button" prefHeight="54.0" prefWidth="645.0" style="-fx-text-fill: black; -fx-font-size: 20; -fx-font-family: &quot;Tahoma&quot;; -fx-border-color: black;" text="Hello!" wrapText="true">
+               <font>
+                  <Font name="Candara" size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="chat2" layoutX="7.0" layoutY="60.0" minHeight="10.0" mnemonicParsing="false" onAction="#Chat2Button" prefHeight="54.0" prefWidth="643.0" style="-fx-text-fill: black; -fx-font-size: 20; -fx-font-family: &quot;Tahoma&quot;;" text="How are you ?" wrapText="true">
+               <font>
+                  <Font name="Candara" size="26.0" />
+               </font>
+
+            
+                        </Button>
+            <Button fx:id="chat3" layoutX="7.0" layoutY="104.0" minHeight="10.0" mnemonicParsing="false" onAction="#Chat3Button" prefHeight="54.0" prefWidth="643.0" style="-fx-text-fill: black; -fx-font-size: 20; -fx-font-family: &quot;Tahoma&quot;;" text="My monsters are stronger than yours!!!" wrapText="true">
+               <font>
+                  <Font name="Candara" size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="chat4" layoutX="6.0" layoutY="158.0" minHeight="10.0" mnemonicParsing="false" onAction="#Chat4Button" prefHeight="54.0" prefWidth="643.0" style="-fx-text-fill: black; -fx-font-size: 20; -fx-font-family: &quot;Tahoma&quot;;" text="GG well-played!!!" wrapText="true">
+               <font>
+                  <Font name="Candara" size="26.0" />
+               </font>
+            </Button>
+            <TextArea fx:id="ChatField" layoutX="6.0" layoutY="206.0" onKeyPressed="#pressChatField" prefHeight="73.0" prefWidth="643.0" promptText="Enter your text here (Max 25 characters): " wrapText="true">
+               <font>
+                  <Font name="Arial" size="28.0" />
+               </font>
+            </TextArea>
+         </children>
+      </Pane>
+      <Line fx:id="attackPath" endX="408.1715087890625" endY="-321.0" layoutX="491.0" layoutY="333.0" opacity="0.0" startX="-418.0" startY="-207.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="113.0" layoutX="855.0" layoutY="369.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="357.0" />
+      <Label fx:id="curMonsterName" layoutX="877.0" layoutY="376.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="64.0" prefWidth="314.0" text="Monster A" textAlignment="CENTER" textFill="#141414" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Candara Bold" size="33.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="curHP" cache="true" depthTest="DISABLE" layoutX="921.0" layoutY="433.0" prefHeight="29.0" prefWidth="270.0" progress="1.0" style="-fx-accent: green;">
+         <effect>
+            <Glow level="0.98" />
+         </effect>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="W_RESIZE" />
+         </cursor>
+      </ProgressBar>
+      <Ellipse fx:id="curChatBox" fill="#f8f8f8" layoutX="508.0" layoutY="263.0" opacity="0.0" radiusX="157.0" radiusY="80.0" stroke="#8a5757" strokeLineCap="BUTT" strokeType="INSIDE" strokeWidth="5.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <effect>
+            <Shadow blurType="GAUSSIAN" color="WHITE" height="0.0" radius="4.75" />
+         </effect>
+      </Ellipse>
+      <Label fx:id="curChat" alignment="CENTER" contentDisplay="CENTER" layoutX="369.0" layoutY="183.0" opacity="0.0" prefHeight="160.0" prefWidth="292.0" text="curChat" wrapText="true">
+         <font>
+            <Font name="Calibri Italic" size="31.0" />
+         </font>
+      </Label>
+      <Ellipse fx:id="oppChatBox" fill="#f8f8f8" layoutX="762.0" layoutY="98.0" opacity="0.0" radiusX="140.0" radiusY="74.0" stroke="#8a5757" strokeLineCap="BUTT" strokeType="INSIDE" strokeWidth="5.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <effect>
+            <Shadow blurType="GAUSSIAN" color="WHITE" height="0.0" radius="4.75" />
+         </effect>
+      </Ellipse>
+      <Label fx:id="oppChat" alignment="CENTER" contentDisplay="CENTER" layoutX="641.0" layoutY="30.0" opacity="0.0" prefHeight="136.0" prefWidth="250.0" wrapText="true">
+         <font>
+            <Font name="Calibri Italic" size="33.0" />
+         </font>
+      </Label>
+      <Pane fx:id="ItemPane" layoutY="518.0" prefHeight="283.0" prefWidth="656.0" style="-fx-border-color: black; -fx-border-width: 5;">
+         <children>
+            <Button fx:id="Potion" layoutX="7.0" layoutY="6.0" mnemonicParsing="false" onAction="#PotionButton" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 40;" text="Potion">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Button>
+            <Button fx:id="Antidode" layoutX="328.0" layoutY="6.0" mnemonicParsing="false" onAction="#AntidodeButton" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 40;" text="Antidode">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Button>
+            <Button layoutX="7.0" layoutY="138.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 40;">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Button>
+            <Button layoutX="328.0" layoutY="138.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 40;">
+               <font>
+                  <Font name="Candara" size="40.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="SwitchPane" layoutY="518.0" prefHeight="283.0" prefWidth="656.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-accent: white;">
+         <children>
+            <Label graphicTextGap="10.0" layoutX="6.0" layoutY="4.0" prefHeight="275.0" prefWidth="645.0" style="-fx-background-color: white;" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Consolas" size="57.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Label>
+            <ImageView fx:id="Switch1" fitHeight="150.0" fitWidth="200.0" layoutX="56.0" layoutY="58.0" onMouseClicked="#Switch1On" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="Switch2" fitHeight="150.0" fitWidth="200.0" layoutX="378.0" layoutY="58.0" onMouseClicked="#Switch2On" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Button fx:id="changeLanguage" layoutX="1184.0" layoutY="13.0" mnemonicParsing="false" onAction="#EngVi" text="ENG">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
+      <MediaView fx:id="switchMedia" fitHeight="0.0" fitWidth="0.0">
+         <mediaPlayer>
+            <MediaPlayer>
+               <media>
+                  <Media>
+                     <source>
+                        <URL value="@../../MoveSound/pokemon_Out.mp3" />
+                     </source>
+                  </Media>
+               </media>
+            </MediaPlayer>
+         </mediaPlayer>
+      </MediaView>
+      <MediaView fx:id="media" fitHeight="0.0" fitWidth="0.0">
+         <mediaPlayer>
+            <MediaPlayer>
+               <media>
+                  <Media>
+                     <source>
+                        <URL value="@../../OST/OST2.mp3" />
+                     </source>
+                  </Media>
+               </media>
+            </MediaPlayer>
+         </mediaPlayer>
+      </MediaView>
+      <Pane layoutX="655.0" layoutY="517.0" prefHeight="283.0" prefWidth="650.0" style="-fx-border-color: black; -fx-border-width: 5;">
+         <children>
+            <Button fx:id="AttackButton" layoutX="7.0" layoutY="6.0" mnemonicParsing="false" onAction="#onAttackButton" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 45; -fx-font-family: &quot;Consolas&quot;; -fx-border-width: 5;" text="ATTACK" textOverrun="CLIP">
+               <font>
+                  <Font name="Consolas" size="46.0" />
+               </font>
+            </Button>
+            <Button fx:id="SwitchButton" layoutX="314.0" layoutY="6.0" mnemonicParsing="false" onAction="#onSwitchButton" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 45; -fx-font-family: &quot;Consolas&quot;;" text="SWITCH">
+               <font>
+                  <Font name="Consolas" size="46.0" />
+               </font>
+            </Button>
+            <Button fx:id="ItemButton" layoutX="7.0" layoutY="141.0" mnemonicParsing="false" onAction="#onItemButton" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 45; -fx-font-family: &quot;Consolas&quot;;" text="ITEM">
+               <font>
+                  <Font name="Consolas" size="45.0" />
+               </font>
+            </Button>
+            <Button fx:id="ChatButton" layoutX="325.0" layoutY="141.0" mnemonicParsing="false" onAction="#onChatButton" prefHeight="136.0" prefWidth="322.0" style="-fx-text-fill: black; -fx-background-color: white; -fx-font-size: 45; -fx-font-family: &quot;Consolas&quot;; -fx-border-width: 5;" text="CHAT">
+               <font>
+                  <Font name="Consolas" size="45.0" />
+               </font>
+            </Button>
+         </children></Pane>
+      <MediaView fx:id="attackMedia" fitHeight="0.0" fitWidth="0.0">
+         <mediaPlayer>
+            <MediaPlayer>
+               <media>
+                  <Media>
+                     <source>
+                        <URL value="@../../MoveSound/bulletBunch.mp3" />
+                     </source>
+                  </Media>
+               </media>
+            </MediaPlayer>
+         </mediaPlayer>
+      </MediaView>
+      <Pane fx:id="ActionPane" layoutY="518.0" prefHeight="283.0" prefWidth="656.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-accent: white;">
+         <children>
+            <Label fx:id="ActionText" graphicTextGap="10.0" layoutX="6.0" layoutY="4.0" prefHeight="275.0" prefWidth="645.0" style="-fx-background-color: white;" text=" WHAT SHOULD MONSTER A DO !?" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Consolas" size="38.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</Pane>
