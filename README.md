@@ -4,9 +4,7 @@ Semester: 2020b
 Assessment name: Project Proposal
 Project topic: Pocket Monster
 Team name: Pocket Monster
-Project manager: Le Thanh Tai (s3760615)
-Technical Lead: Le Hoang Cat(s3790029)
-Team members: Le Thanh Tai(s376015), Chu Anh Minh(s3758870), Le Hoang Cat(s3790029)
+Student: Le Thanh Tai
 
 1. INTRODUCTION
 This project is about a game called Pocket Monster which is played between two players control their monsters to fight each other. The objective of this game is to defeat 
